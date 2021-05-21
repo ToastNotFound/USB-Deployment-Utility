@@ -101,8 +101,16 @@ set /p CONFIRM=
 if %CONFIRM%==n (
     goto NCON
 )
-robocopy "D:\usb\usb_master" "%TARGET_DRIVE%:" /s /nfl /ndl /purge
-echo.
-echo Check that the process completed correctly.
-echo.
-pause
+if %CONFRIRM%==y (
+    Target drive location confirmed.
+    echo.
+    echo Backing up...
+    robocopy "D:\usb\usb_master" "%TARGET_DRIVE%:" /s /nfl /ndl /purge
+    echo.
+    echo Deployment complete. Please check the process completed correctly.
+    echo.
+    pause
+    exit
+) else (
+    goto CON_ERROR
+)
